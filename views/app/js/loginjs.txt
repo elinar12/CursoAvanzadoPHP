@@ -1,0 +1,125 @@
+CursoAvanzadoPHP/views/app/js/login.js
+NOTA DE CODIGO login.js funcion__('user_login').value                                           (1)
+
+Codigo:    user = __('user_login').value
+
+Con la funcion llamada [ __ ] que contiene la instruccion [ document.getElementById(id)] concantenado con la propiedad [.value] Se accede y se obtiene el valor del elemento del formulario [user_login] y se le asigna a la variable [user]
+
+    La instruccion enviada seria:  document.getElementById('user_login').value
+
+NOTA DE CODIGO login.js variable form                                                           (2)
+
+Codigo:    form = 'user=' + user + '&pass=' + pass + '&sesion=' + sesion;
+
+La variable form se le asigna los valores que va necesitar Ajax para las consultas y datos requeridos para cada evento que vayamos a realizar y los devuelve.
+
+    Para el codigo:    connect.send(form);
+
+La instruccion enviada seria:    XMLHttpRequest.send(form);
+
+
+NOTA DE CODIGO login.js variable connect                                                        (3)
+
+Codigo:   connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+
+Se Verifica si en el objeto [window] que es la ventana del navegador,que este presente la propiedad
+
+[XMLHttpRequest] y con la instruccion
+
+en AJAX es [si existe] que es la instruccion con el signo [?] se crea la instancia [XMLHttpRequest] y se asigna a la variable [connect]. Sino que es la instruccion [:] procedemos crear una instancia [ActiveXObject] con el objeto [Microsoft] que es la ventana de del navegador con la propiedad [XMLHTTP].
+
+    El objeto XMLHttpRequest: Que proporciona la comunicación asíncrona entre las aplicaciones web y los servidores subyacentes y servicios de oficina. Con el objeto XMLHttpRequest, los clientes pueden recuperar y enviar datos XML directamente al servidor Web sin tener que recargar la página.
+
+NOTA DE CODIGO login.js variable connect.onreadystatechange                                     (4)
+
+Codigo:   connect.onreadystatechange = function() {
+
+Almacena una función (o el nombre de una función) que se llamará automáticamente
+cada vez que cambia la propiedad readyState
+
+NOTA DE CODIGO login.js variable connect.readyState                                             (5)
+
+Codigo:   connect.readyState
+que en relidad seria [XMLHttpRequest.readyState]
+
+Devuelve en valor numérico (entero) que almacena el estado de la petición
+
+El XMLHttpRequest objeto hace una solicitud asincrónica con el servidor web
+Ejerce en el estado de la XMLHttpRequest. Cambia de 0 a 4:
+
+0: solicitud no inicializado
+1: conexión del servidor estableció
+2: solicitud recibida
+3: Solicitud de procesamiento
+4: solicitar acabado y la respuesta está listo
+
+NOTA DE CODIGO login.js variable connect.responseText                                            (6)
+
+que en relidad seria [XMLHttpRequest.responseText]
+
+Devuelve el contenido de la respuesta del servidor en forma de cadena de texto
+
+Para respuesta del servidor cuando es 1
+if(connect.responseText == 1) {
+
+Se asigna el valor actual de result la siguiente forma:
+
+__('_AJAX_LOGIN_').innerHTML = result;
+
+Con la funcion [__] se toma el siguiente elemento con el id
+[_AJAX_LOGIN_] luego con la funcion [.innerHTML] modificamos el valor de ese
+elemento [_AJAX_LOGIN_] por el valor que tenga la variable [result].
+
+NOTA DE CODIGO login.js variable connect.open                                                     (7)
+
+Codigo:   connect.open('POST','ajax.php?mode=login',true);
+
+que en relidad seria
+XMLHttpRequest.open ('POST','ajax.php?mode=login',true);
+
+* Envia una petición de acceso a los datos de tipo [POST], en la direccion
+[ajax.php?mode=login] y que ademas esta se asincrona [true]
+
+* Enviar una solicitud a un servidor con el metodo open ()
+
+open (método, URL, asíncrono)
+
+	*	Método: el tipo de solicitud: GET o POST
+	*	url: el servidor (archivo) de ubicación
+	* asíncrono: verdadero (asíncrono) o falso (síncrona)
+
+NOTA DE CODIGO login.js variable connect.setRequestHeader                                          (8)
+
+Codigo:   connect.open('POST','ajax.php?mode=login',true);
+
+que en realidad seria
+XMLHttpRequest.setRequestHeader ('POST','ajax.php?mode=login',true);
+
+*	Permite metodo establecer cabeceras personalizadas en la solicitud realizada al servidor.
+  setRequestHeader("cabecera", "valor")
+
+* connect.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+
+	Se establece la cabecera [Content-Type], con el valor [application/x-www-form-urlencoded]
+	que tienen como tiene como función codificar todos los caracteres antes de que sean enviados
+	al servidor a travez del metodo POST.
+
+NOTA DE CODIGO login.js Funcion runScriptLogin(e) (9)
+
+Codigo:   function runScriptLogin(e) {
+	        if(e.keyCode == 13)
+          goLogin();
+
+  Si en el evento el valor cuando presionamos una tecla es igual 13. Que seria la Tecla Enter
+  Se inicia la funcion goLogin();
+
+  Donde keyCode es la propiedad devuelve el código de caracteres Unicode de la tecla presionada
+
+  En  el formulario se utilizo
+
+ 	<div role="form" onkeypress="return runScriptLogin(event)">
+
+ 	onkeypress, funcion de tomar lo ultimo marcado en el tecloado y se le dice que
+ 	devuelva el valor de la funcion [runScriptLogin] con variable [event]
+ 	que utiliza la verificacion [if(e.keyCode == 13)] Que seria la Tecla Enter se
+ 	inicia la funcion goLogin().

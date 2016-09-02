@@ -1,0 +1,82 @@
+CursoAvanzadoPHP/core/core.php
+
+// NOTA DE CODIGO core.php define('HTML_DIR','html/');                                                      (1)
+
+Codigo: define('HTML_DIR','html/');
+
+Se define la constante [HTML_DIR] , con el valor [html/]
+
+Crear una constante de PHP
+
+Para crear una constante, se utiliza la funcion define ().
+
+Sintaxis:
+define(nombre de la Constate(SIEMPRE EN MAYUSCULA), valor , case-insensitive )
+
+parametros:
+
+    Nombre: especifica el nombre de la constante
+    Valor: Especifica el valor de la constante
+    entre mayusculas y minusculas: especifica si el nombre de la constante debe ser entre
+    mayusculas y minusculas. El valor predeterminado es falsa
+
+ejemplo
+<?php
+define("GREETING", "Welcome to W3Schools.com!", true);
+echo greeting;
+
+// NOTA DE CODIGO core.php define('APP_TITLE','OcrendBB');                                                   (2)
+
+Codigo: define('APP_TITLE','OcrendBB');
+
+Se define la constante [APP_TITLE] , con el valor [OcrendBB]
+
+// NOTA DE CODIGO core.php define('APP_COPY','Copyright &copy; ' . date('Y',time()) . ' Ocrend Software.');  (3)
+
+Codigo: define('APP_COPY','Copyright &copy; ' . date('Y',time()) . ' Ocrend Software.');
+
+Se define la constante [APP_COPY] , con el valor [Copyright &copy; ' . date('Y',time()) . ' Ocrend Software.]
+
+
+
+// NOTA DE CODIGO core.php define('APP_URL','http://localhost/GitHub/OcrendBB/');                            (4)
+
+Codigo: define('APP_URL','http://localhost/GitHub/OcrendBB/'');
+
+Se define la constante [APP_URL] , con el valor [http://localhost/GitHub/OcrendBB/']
+
+
+// NOTA DE CODIGO core.php require('vendor/autoload.php');                                                   (5)
+
+Codigo:
+
+require es idéntico a include excepto que en caso de fallo producirá un error fatal de nivel E_COMPILE_ERROR. En otras palabras, éste detiene el script mientras que include sólo emitirá una advertencia (E_WARNING) lo cual permite continuar el script.
+
+
+// NOTA DE CODIGO core.php require('core/models/class.Conexion.php');                                        (6)
+
+Codigo: require('core/models/class.Conexion.php');
+
+Los archivos son incluidos con base en la ruta de acceso (core/models/class.Conexion.php) o, si ninguna es dada. Si el archivo no se encuentra emitirá un error fatal..
+
+
+// NOTA DE CODIGO core.php require('core/bin/functions/Encrypt.php');                                        (7)
+
+Codigo:require('core/bin/functions/Encrypt.php');
+
+Los archivos son incluidos con base en la ruta de acceso (core/bin/functions/Encrypt.php) o, si ninguna es dada. Si el archivo no se encuentra emitirá un error fatal..
+
+
+// NOTA DE CODIGO core.php require('core/bin/functions/Users.php');                                          (8)
+
+Codigo: require('core/bin/functions/Users.php');
+
+Los archivos son incluidos con base en la ruta de acceso (core/bin/functions/Encrypt.php) o, si ninguna es dada. Si el archivo no se encuentra emitirá un error fatal..
+
+// NOTA DE CODIGO core.php $users = Users();                                                                 (9)
+
+Codigo: $users = Users();
+
+La Variable $user va tener el valor de la [Funcion Users();]
+
+// NOTA DE CODIGO CursoAvanzadoPHP/core/bin/functions/Users.php

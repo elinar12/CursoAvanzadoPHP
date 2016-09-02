@@ -1,0 +1,58 @@
+<html><head><meta charset="utf-8"> </head>
+
+<body>
+
+<?php
+
+//Ejemplo aprenderaprogramar.com
+
+function Users() {
+$db = new Conexion();
+$db = new Conexion();
+// Creo una nueva instancia Conexion y se la asigno a db$
+$sql = $db->query("SELECT * FROM users;");
+// Aqui consultamos todos los campos de la tabla users
+if($db->rows($sql) > 0) {
+
+
+echo "- Nombre: ".$sql['nombre']."<br/> ";
+
+echo "- Apellidos: ".$sql['pass']."<b>";
+
+echo "- Dirección: ".$sql['permisos']."<br/>";
+
+echo "- Teléfono: ".$sql['keyreg']."<br/>";
+
+echo "- Edad: ".$sql['ultima_conexion']."<br/>";
+
+echo "- kp: ".$sql['keypass']."<br/>";
+
+echo "- npws: ".$sql['new_pass']."<br/>";
+
+
+echo "**********************************<br/>";}
+
+else {echo "<br/>No hay más datos!!! <br/>";}
+
+}
+
+$link = mysqli_connect("sql203.byethost7.com", "b7_10356956", "*****");
+
+mysqli_select_db($link, "b7_10356956_mibasededatos");
+
+$tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes correctamente
+
+$result = mysqli_query($link, "SELECT * FROM agenda");
+
+while ($fila = mysqli_fetch_array($result)){
+
+mostrarDatos($fila);
+
+}
+
+mysqli_free_result($result);
+
+mysqli_close($link);
+
+?>
+</body></html>

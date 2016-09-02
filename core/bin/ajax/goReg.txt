@@ -1,0 +1,91 @@
+CursoAvanzadoPHP/core/ajax/goLogin.php
+
+NOTA DE CODIGO goLogin.php if(!empty($_POST['user']) and !empty($_POST['pass'])) {      (1)
+
+Codigo: if(!empty($_POST['user']) and !empty($_POST['pass'])) {
+
+aqui verificamos si esta vacio el campo del formulario con el nombre [user] y
+si esta vacio el campo del formulario con nombre [password]
+
+La información enviada desde un formulario con el método POST es invisible para los demás
+(todos los nombres / valores están incrustados dentro del cuerpo de la petición HTTP) y
+no tiene límites en la cantidad de información que desee enviar.
+
+El código HTML del formulario se ve así:
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
+NOTA DE CODIGO goLogin.php $pass = Encrypt($_POST['pass']);                             (2)
+
+Codigo: $data = $db->real_escape_string($_POST['user']);
+
+Esta función se usa para crear una cadena SQL legal que se puede usar en una sentencia SQL.
+La cadena dada es codificada a una cadena SQL escapada, tomando en cuenta el conjunto
+de caracteres actual de la conexión.
+
+//  NOTA DE CODIGO goLogin.php $pass = Encrypt($_POST['pass']);                         (3)
+Codigo: $pass = Encrypt($_POST['pass']);
+
+La variable $pass Va tener el valor encriptado de lo enviado en campo pass utilizando
+el metodo oculto de POST.
+
+NOTA DE CODIGO goLogin.php $sql = $db->query("SELECT id FROM users WHERE..              (4)
+
+Codigo:
+
+$sql = $db->query("SELECT id FROM users
+WHERE (user='$data' OR email='$data') AND pass='$pass' LIMIT 1;");
+
+Aqui consultamos si el campo id de la tabla users lo que se ha llenado
+en el formulario coinciden con los campos de la base de datos usuario o email y
+a la vez si el valor de pass es igual al que enviamos por el formulario,
+y para que nos arroje un solo resultado le colocamos la intruccion LIMIT 1
+
+En la segunda linea con la propiedad la variable rows que en realidad es esto
+
+mysql_num_rows($sql) donde obtiene el número de filas de un resultado, en este
+caso seria ($sql) que es la consulta si existe un usuario o email y a vez si
+coincide la contraseña escrita en el formulario con la registrada en la
+base datos dandonos como resultado un numero de filas.
+
+Si es correcto nos arroja que el numero de fila es 1, sino es cero 0
+
+if($db->rows($sql) == 0) {
+
+Si es Mayor que cero iniciaria la session y sino arrojaria credenciales incorrectas.
+
+NOTA DE CODIGO goLogin.php  if($_POST['sesion'])  ini_set...                            (5)
+
+Codigo: if($_POST['sesion']) {
+
+ini_set('session.cookie_lifetime', time() + (60*60*24));
+
+Si el valor del formulario es igual al existente en campo session del formulario
+
+ini_set('session.cookie_lifetime', time() + (60*60*24));
+En la segunda linea con la intruccion ini_set Se establece el valor de la directiva de configuración dada
+este caso se le dice con la insteucion 'session.cookie_lifetime  se le especifica el tiempo de vida en segundos
+de la cookie que es enviada al navegador. Luego con tiempo se le asigan 60*60*24 todos los dias.
+
+NOTA DE CODIGO goLogin.php $_SESSION['app_id'] = $db->recorrer($sql)[0];                (6)
+
+Aqui el campo ['app_id']  del formulario $_SESSION['app_id']
+va manejar la id del usuario, atravez de un arreglo $db->recorrer($sql)[0];
+
+que en realidad es: $db->mysqli_fetch_array($sql)[0];
+
+Donde recupera una fila de resultado como una matriz asociativa de lo obtenido en ($sql)
+con el indice[0] que es el inicio del arreglo.
+
+
+$time = time();
+$hash = md5($key . $time);
+$url =  "http://domain.com/iframe?hash=$hash&time=$time";
+
+Por otro lado, primero debe comprobar si la marca de tiempo está en los límites
+(por ejemplo, no más de cinco minutos) y de repetición con la llave y la marca de tiempo presentado.
+Si se obtiene el mismo hash la solicitud es válida.
+
+http://www.desarrolloweb.com/articulos/phpmailer.html
+
+$sql_2 = $db->query("SELECT MAX(id) AS id FROM users;");
+La función MAX () devuelve el mayor valor de la columna seleccionada.

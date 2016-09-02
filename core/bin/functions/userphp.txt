@@ -1,0 +1,60 @@
+CursoAvanzadoPHP/core/functions/Users.php
+
+NOTA DE CODIGO Users.php if($db->rows($sql) > 0) {                                      (1)
+
+Codigo: if($db->rows($sql) > 0) {
+
+Que en realidad seria: if($db->mysql_num_rows($sql) > 0) {
+
+Con La propiedad mysql_num_rows($sql) Obtenemos el número de filas o registros
+presentes en una base de datos ($sql) si es mayor a 0 se ejecuta el codigo.
+
+NOTA DE CODIGO Users.php while($d = $db->recorrer($sql)) {                              (2)
+
+Codigo: while($d = $db->recorrer($sql)) {
+
+Aqui la variable $d va tene el valor del arreglo $db->recorrer($sql)
+Que en realidad Seria: [while ($d = mysql_fetch_array($sql))]
+
+Por un lado, se ejecuta $d = mysqli_fetch_array($sql)
+nos devuelve un arreglo con los datos de una fila de las obtenidas como resultado y
+cada vez que lo invocamos nos devuelve la siguiente fila hasta que ya no existen
+más filas de la base de datos ($sql) nos devuelve NULL o vacío.
+
+$d = mysqli_fetch_array($sql) obtenemos un arreglo asociativo con índice del arreglo
+los nombres de las columnas, por ejemplo:
+$d['id'], $d['user'],$d['pass'], $d['email']
+
+[while ($d = mysql_fetch_array($sql))]
+Codigo: $users[$d['id']] = array(
+        'id' => $d['id'],
+        'user' => $d['user'],
+        'pass' => $d['pass'],
+        'email' => $d['email'],
+        'permisos' => $d['permisos']
+      );
+
+$users[$d['id']] = 'id' => $d['id'] seria realmente:
+$users[d$[0]] = 'id' => [0]['id']
+Quedando asi: $user[0] = 'id' => [0]['id']
+
+Teecer dato: Aqui se ve mas claro el arreglo
+$users[$d['id']] = 'pass' => $d['pass'] seria realmente:
+$users[$d[2]] = 'pass' => [2]['pass']
+Quedando asi: $users[2] = 'pass' => [2]['pass']
+
+En $users[0] tendrías el primer id ($users[0]['id']), el primer user ($users[0]['user'])
+y el primer pass ($users[0]['pass']). En $users[3] el cuarto id ($users[3]['id'])
+con el cuarto user (y si hay más, pues eso, más grande sería el array).
+
+NOTA PRINICK
+
+En este arreglo cada indice va ser el ['id'] de cada uno de los usuarios.
+Como lo vemos aqui $users[$d[2]] = 'pass' => [2]['pass']
+Generando un arreglo para cada usuario. Dentro un arreglo gigante que contiene todos los usuarios.
+Vamos generar un arreglo por cada usuario. Estamos simulando el funcionamiento
+de la base de datos.
+
+Cuando se necesite sacar la informacion de un usuario solo necesito su ['id'] y
+no voy a buscar a la base de datos exclusivamente su informacion sino que de
+este codigo que va ser reutilizable llamo a la variable users.

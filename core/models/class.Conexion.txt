@@ -1,0 +1,53 @@
+CursoAvanzadoPHP/core/models/class.Conexion.php
+
+NOTA DE CODIGO class.Conexion.php parent::__construct(DB_HOST,..);                                        (1)
+
+Codigo:
+
+class Conexion extends mysqli {
+
+  public function __construct() {
+    parent::__construct(DB_HOST,DB_USER,DB_PASS,DB_NAME);
+
+Funcion del Codigo: Esto es para establecer la conexion con la base de datos del Sistema.
+
+Primero se crea la clase Conexion asi:
+
+class Conexion extends mysqli {
+
+La extensión de una clase significa que está utilizando un descendiente de la clase padre. No es necesario crear una instancia de la clase padre, pero si usted necesita para hacer uso de su constructor y extender su funcionalidad, debe llamar explícitamente en este caso
+
+* public function __construct() {
+* parent::__construct(DB_HOST,DB_USER,DB_PASS,DB_NAME);
+
+En la primera línea En la funcion publica construct inicializa las variables de clase, y apertura las conexiones a la base de datos.
+
+En la segunda línea del constructor se llama al constructor creado para la clase "mysqli". Para ello utilizamos parent:: y luego el nombre del método de la clase padre al que se quiere llamar, en este caso __construct(). Al constructor de la clase padre le enviamos las variables que se deben inicializar con la clase padre (DB_HOST,DB_USER,DB_PASS,DB_NAME).
+
+NOTA DE CODIGO class.Conexion.php $this->connect_errno ? die..                                            (2)
+
+Codigo: $this->connect_errno ? die('Error en la conexión a la base de datos') : null;
+
+Nos Devuelve Error si hay falla en la conexion con la base de datos y con la intruccion SINO
+que es el simbolo  de [?] y con la propiedad [die] muestra lo siguiente:
+('Error en la conexión a la base de datos') Luego con la intruccion  que es de lo contrario [:]  con la propiedad null devuelve como mensaje nulo,
+
+
+NOTA DE CODIGO class.Conexion.php $this->set_charset("utf8");                                             (3)
+
+Codigo: $this->set_charset("utf8");
+Especifica el conjunto de caracteres por defecto en es caso ("utf8");
+
+NOTA DE CODIGO class.Conexion.php mysqli_num_rows($query);                                                (4)
+
+Codigo: return mysqli_num_rows($query);
+
+Retorna el número de filas como resultado y de la varible [$query]
+
+NOTA DE CODIGO class.Conexion.php return mysqli_fetch_array($query);                                      (5)
+
+Codigo: return mysqli_fetch_array($query);
+
+Guarda la información de los índices numéricos del array resultante, la función mysqli_fetch_array() también puede guardar la información en índices asociativos, utilizando los nombres de los campos del resultado como llaves.
+
+En es caso Guarda la informacion del indice numerico de la varible($query);
